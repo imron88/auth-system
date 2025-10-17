@@ -49,7 +49,8 @@ export async function POST(request:NextRequest) {
         response.cookies.set("token",token,{
             httpOnly:true,
             sameSite: "strict",
-            maxAge: 60 * 60 * 24
+            maxAge: 60 * 60 * 24,
+            secure:true
         });
         return response;
     } catch (error : any) {
