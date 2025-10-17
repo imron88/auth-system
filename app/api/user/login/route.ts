@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(request:NextRequest) {
     try {
@@ -27,8 +28,17 @@ export async function POST(request:NextRequest) {
                 {status : 400}
             )
         }
-        
-        
+        const tokenData = {
+            id : user.id,
+            email : user.email,
+            username : user.username
+        }
+        const token = jwt.sign(tokenData,process.env.TOKEN_SECRET!);
+        const response = NextResponse.json({
+            msg : "Login sucessfully!",
+            sucess : true,
+        })
+        response.cookies.set("token",token,{httpOnly:true});
     } catch (error : any) {
         console.error("Error in POST /api route:", error);
     return NextResponse.json(
