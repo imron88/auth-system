@@ -21,10 +21,10 @@ model User {
   password                  String
   isVerified                Boolean  @default(false)
   role                      Role     @default(USER)
-  forgotPasswordToken       String   
-  forgotPasswordTokenExpiry DateTime
-  verifyToken               String
-  verifyTokenExpiry         DateTime
+  forgotPasswordToken       String?   
+  forgotPasswordTokenExpiry DateTime?
+  verifyToken               String?
+  verifyTokenExpiry         DateTime?
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
 }
