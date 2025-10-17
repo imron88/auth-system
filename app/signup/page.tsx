@@ -45,6 +45,7 @@ const Signup = () => {
         placeholder="password"
         />
         <button
+        className="p-2 "
         onClick={handelSignup}
         >SignUp</button>
         <Link href={"/login"}>Login Here</Link>
