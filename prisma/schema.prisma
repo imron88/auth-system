@@ -21,9 +21,9 @@ model User {
   password                  String
   isVerified                Boolean  @default(false)
   role                      Role     @default(USER)
-  forgotPasswordToken       String   @unique @default(uuid())
+  forgotPasswordToken       String   
   forgotPasswordTokenExpiry DateTime
-  verifyToken               String   @unique @default(uuid())
+  verifyToken               String
   verifyTokenExpiry         DateTime
   createdAt                 DateTime @default(now())
   updatedAt                 DateTime @updatedAt
