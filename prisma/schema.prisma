@@ -20,6 +20,12 @@ model User {
   email     String   @unique
   password  String
   isVerified Boolean @default(false)
+  role  Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
 }
