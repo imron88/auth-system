@@ -17,7 +17,7 @@ export async function POST(request:NextRequest) {
         });
         if(!user){
             return NextResponse.json(
-                {error : "user does not exist!"},
+                {error : "user does not exist!,Invalid email!"},
                 {status : 400}
             )
         }
@@ -33,12 +33,25 @@ export async function POST(request:NextRequest) {
             email : user.email,
             username : user.username
         }
+
         const token = jwt.sign(tokenData,process.env.TOKEN_SECRET!,{expiresIn:"1d"});
+
         const response = NextResponse.json({
             msg : "Login sucessfully!",
             sucess : true,
+            user : {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+            }
         })
-        response.cookies.set("token",token,{httpOnly:true});
+
+        response.cookies.set("token",token,{
+            httpOnly:true,
+            sameSite: "strict",
+            maxAge: 60 * 60 * 24
+        });
+        return response;
     } catch (error : any) {
         console.error("Error in POST /api route:", error);
     return NextResponse.json(
