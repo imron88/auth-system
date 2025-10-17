@@ -1,14 +1,23 @@
 "use client"
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const Login = () => {
+    const router = useRouter();
     const [user,setUser] = useState({
         email:"",
         password:""
     })
     const handelLogin = async ()=>{
-
+        try {
+      const response = await axios.post("/api/user/login", user);
+      console.log("signup successfully!", response.data);
+      router.push("/login");
+    } catch (error) {
+      console.log("signup failed!", error);
+    }
     }
   return <div>
 
