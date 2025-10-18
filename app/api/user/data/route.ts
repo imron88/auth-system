@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       );
     }
     const response = NextResponse.json({
-      user,
+      user
     });
     return response;
   } catch (error: any) {
