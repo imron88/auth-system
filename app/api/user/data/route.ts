@@ -5,7 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request:NextRequest) {
     try {
         const id = await getDataFromToken(request)
-        const user = await prisma.user.findFirst({
+        if (!id) {
+            return NextResponse.json(
+                { error: "Invalid or missing token" },
+                { status: 401 }
+            );
+        }
+        const user = await prisma.user.findUnique({
             where : {
                 id
             },
