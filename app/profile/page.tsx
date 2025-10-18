@@ -1,9 +1,23 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Profile = () => {
   const router = useRouter();
+   const [data,setData] = useState("");
+  const getUserData = async()=>{
+    try {
+      const res = await axios.get("/api/user/data");
+      console.log(res.data);
+      setData(res.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    getUserData()
+  },[])
 
   const logOut = async () => {
     try {
@@ -18,7 +32,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black">
       <div className="bg-gray-900 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700 text-center">
-        <h1 className="text-3xl font-bold text-white mb-6">Your Profile</h1>
+        <h1 className="text-3xl font-bold text-white mb-6">{data}</h1>
         <p className="text-gray-300 mb-6">Welcome to your dashboard!</p>
 
         <button
