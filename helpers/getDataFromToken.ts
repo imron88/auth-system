@@ -5,11 +5,11 @@ import { NextRequest } from "next/server"
 export const getDataFromToken = (request : NextRequest) => {
     try {
         const token = request.cookies.get("token")?.value || ""
-        const decode = jwt.verify(token,process.env.TOKEN_SECRET || "")
+        const decode : any = jwt.verify(token,process.env.TOKEN_SECRET || "")
         if(!decode){
             throw new Error("invalid token")
         }
-        return decode
+        return decode.id
     } catch (error : any) {
         throw new Error(error.message)
     }
