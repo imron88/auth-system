@@ -2,7 +2,7 @@ import { getDataFromToken } from "@/helpers/getDataFromToken";
 import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const id = await getDataFromToken(request);
     if (!id) {
