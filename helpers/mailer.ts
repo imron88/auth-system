@@ -2,8 +2,13 @@ import prisma from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import nodemailer from "nodemailer"
 
+interface SendEmailParams {
+  email: string;
+  emailType: "VERIFY" | "RESET";
+  userId: string;
+}
 
-export const sendEmail = async({email,emailType,userId} : any)=>{
+export const sendEmail = async({email,emailType,userId} : SendEmailParams)=>{
     try {
         const hasedToken = await bcrypt.hash(userId,10)
         if(emailType === "VERIFY"){
@@ -18,11 +23,11 @@ export const sendEmail = async({email,emailType,userId} : any)=>{
             });
         }
         var transport = nodemailer.createTransport({
-            host: "live.smtp.mailtrap.io",
-            port: 587,
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
             auth: {
-                user: "api",
-                pass: process.env.TOKEN
+                user: process.env.USERNAME,
+                pass: process.env.PASSWORD
             }
         });
 
@@ -33,8 +38,9 @@ export const sendEmail = async({email,emailType,userId} : any)=>{
             html : `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hasedToken}">here</a> to ${emailType === "VERIFY" ? "Verify your email!" : "Reset your Password!"} </p>`
         }
         const mailResponse = await transport.sendMail(mailOptions)
-        return mailResponse;
+        return { success: true, message: "Email sent successfully", response: mailResponse };
     } catch (error : any) {
-        throw new Error("error in sendEmail Fn",error)
+        console.error("Error in sendEmail:", error);
+        throw error;
     }
 }
