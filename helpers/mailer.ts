@@ -11,15 +11,16 @@ interface SendEmailParams {
 export const sendEmail = async({email,emailType,userId} : SendEmailParams)=>{
     try {
         const hasedToken = await bcrypt.hash(userId,10)
+        const expiry = new Date(Date.now() + 3600000);
         if(emailType === "VERIFY"){
             await prisma.user.update({
                 where: { id: userId },
-                data: { verifyToken: hasedToken , verifyTokenExpiry : (Date.now() + 3600000).toString() }
+                data: { verifyToken: hasedToken , verifyTokenExpiry : expiry }
             });
         }else if(emailType === "RESET"){
             await prisma.user.update({
                 where: { id: userId },
-                data: { forgotPasswordToken: hasedToken , forgotPasswordTokenExpiry : (Date.now() + 3600000).toString() }
+                data: { forgotPasswordToken: hasedToken , forgotPasswordTokenExpiry : expiry }
             });
         }
         var transport = nodemailer.createTransport({
