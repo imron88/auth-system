@@ -24,7 +24,14 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-    
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        isVerified: true,
+        verifyToken: null,
+        verifyTokenExpiry: null,
+      },
+    });
   } catch (error: any) {
     console.error("Error in POST /api route:", error);
     return NextResponse.json(
