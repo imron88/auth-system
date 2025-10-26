@@ -35,7 +35,7 @@ export const sendEmail = async({email,emailType,userId} : SendEmailParams)=>{
             from : "randomLassi@gmail.com",
             to : email,
             subject : emailType === "VERIFY" ? "Verify your email!" : "Reset your Password!",
-            html : `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hasedToken}">here</a> to ${emailType === "VERIFY" ? "Verify your email!" : "Reset your Password!"} </p>`
+            html :  emailType === "VERIFY" ? `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${hasedToken}">here</a> to Verify your email! </p>` : `<p>Click <a href="${process.env.DOMAIN}/reserpassword?token=${hasedToken}">here</a> to Reset your Password! </p>`
         }
         const mailResponse = await transport.sendMail(mailOptions)
         return { success: true, message: "Email sent successfully", response: mailResponse };
