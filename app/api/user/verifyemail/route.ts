@@ -6,10 +6,16 @@ export async function POST(request: NextRequest) {
     const reqBody = request.json()
     const {token} = reqBody;
     console.log(token);
+    if (!token) {
+      return NextResponse.json(
+        { error: "Verification token is required" },
+        { status: 400 }
+      );
+    }
     const user = await prisma.user.findFirst({
         where : {
             verifyToken :token,
-            verifyTokenExpiry : {$gt: Date.now()}
+            verifyTokenExpiry : {gt: new Date()}
         }
     })
   } catch (error: any) {
