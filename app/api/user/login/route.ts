@@ -12,12 +12,13 @@ export async function POST(request:NextRequest) {
         console.log('====================================');
         const user = await prisma.user.findFirst({
             where : {
-                email
+                email,
+                isVerified : true
             }
         });
         if(!user){
             return NextResponse.json(
-                {error : "user does not exist!,Invalid email!"},
+                {error : "user does not exist!,Invalid email! or user not verified!"},
                 {status : 400}
             )
         }
