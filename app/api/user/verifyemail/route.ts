@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const reqBody = request.json();
-    const { token } = reqBody;
+    const { token } = await reqBody;
     console.log(token);
     if (!token) {
       return NextResponse.json(
