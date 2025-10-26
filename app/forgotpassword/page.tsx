@@ -11,8 +11,10 @@ const ForgotPassword = () => {
     try {
       const res = await axios.post("/api/user/forgotpassword", { email });
       if (res.data.message === "Email verified successfully!") {
-                setStatus("success")
-                setMessage(res.data.message || "Password reset link sent to your email!");
+        setStatus("success");
+        setMessage(
+          res.data.message || "Password reset link sent to your email!"
+        );
       }
     } catch (err: any) {
       setStatus("error");
