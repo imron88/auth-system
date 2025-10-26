@@ -63,6 +63,15 @@ const Login = () => {
             />
           </div>
 
+          <div className="text-right">
+            <Link
+              href="/forgotpassword"
+              className="text-sm text-indigo-400 hover:text-indigo-300 transition"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+
           <button
             className="w-full mt-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 transition text-white font-semibold shadow-md"
             onClick={handelLogin}
