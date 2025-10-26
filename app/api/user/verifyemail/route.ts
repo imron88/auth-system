@@ -18,6 +18,13 @@ export async function POST(request: NextRequest) {
             verifyTokenExpiry : {gt: new Date()}
         }
     })
+    if (!user) {
+      return NextResponse.json(
+        { error: "Invalid or expired token" },
+        { status: 400 }
+      );
+    }
+    
   } catch (error: any) {
     console.error("Error in POST /api route:", error);
     return NextResponse.json(
