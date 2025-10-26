@@ -32,6 +32,11 @@ export async function POST(request: NextRequest) {
         verifyTokenExpiry: null,
       },
     });
+    return NextResponse.json({
+      message: "Email verified successfully!",
+      success: true,
+    });
+
   } catch (error: any) {
     console.error("Error in POST /api route:", error);
     return NextResponse.json(
