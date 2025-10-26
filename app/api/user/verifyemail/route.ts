@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const reqBody = request.json()
-    const {token} = reqBody;
+    const reqBody = request.json();
+    const { token } = reqBody;
     console.log(token);
     if (!token) {
       return NextResponse.json(
@@ -13,11 +13,11 @@ export async function POST(request: NextRequest) {
       );
     }
     const user = await prisma.user.findFirst({
-        where : {
-            verifyToken :token,
-            verifyTokenExpiry : {gt: new Date()}
-        }
-    })
+      where: {
+        verifyToken: token,
+        verifyTokenExpiry: { gt: new Date() },
+      },
+    });
     if (!user) {
       return NextResponse.json(
         { error: "Invalid or expired token" },
@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
       message: "Email verified successfully!",
       success: true,
     });
-
   } catch (error: any) {
     console.error("Error in POST /api route:", error);
     return NextResponse.json(
