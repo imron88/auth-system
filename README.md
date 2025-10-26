@@ -34,3 +34,4 @@ This project includes **Signup, Login, Profile, Email Verification, Forgot Passw
 - login route fix
 - middleware fix
 - homepage
+- mailtrap smtp fix
