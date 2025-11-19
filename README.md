@@ -1,4 +1,4 @@
-# MyApp - Full Authentication System
+# Full Authentication System
 
 A modern **full-stack authentication system** built with **Next.js**, **Tailwind CSS**, **Axios**, and **Node.js**.  
 This project includes **Signup, Login, Profile, Email Verification, Forgot Password, and Reset Password** functionality with a clean and responsive UI.
